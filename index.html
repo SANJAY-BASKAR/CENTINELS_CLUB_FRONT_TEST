@@ -12,18 +12,22 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         :root {
-            --primary-green: #00ff41;
-            --primary-cyan: #00ffff;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --card-bg: #111111;
-            --border-color: #333333;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --text-muted: #888888;
-            --accent-red: #ff0040;
-            --accent-blue: #0080ff;
+            --primary-green: #fff;
+            --primary-cyan: #fff;
+            --dark-bg: #111;
+            --darker-bg: #181818;
+            --card-bg: #222;
+            --border-color: #444;
+            --text-primary: #fff;
+            --text-secondary: #bbb;
+            --text-muted: #888;
+            --accent-red: #fff;
+            --accent-blue: #fff;
         }
 
         body {
@@ -69,8 +73,8 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: var(--primary-green);
-            text-shadow: 0 0 10px var(--primary-green);
+            color: #fff;
+            text-shadow: 0 0 10px #fff;
         }
 
         .nav-links {
@@ -87,8 +91,8 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary-cyan);
-            text-shadow: 0 0 5px var(--primary-cyan);
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
         }
 
         .nav-links a::after {
@@ -98,7 +102,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary-cyan);
+            background: #fff;
             transition: width 0.3s ease;
         }
 
@@ -139,20 +143,17 @@
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
+            color: #fff;
+            text-shadow: 0 0 20px #fff;
         }
 
         @keyframes glow {
             from {
-                filter: drop-shadow(0 0 20px var(--primary-green));
+                filter: drop-shadow(0 0 20px #fff);
             }
 
             to {
-                filter: drop-shadow(0 0 30px var(--primary-cyan));
+                filter: drop-shadow(0 0 30px #fff);
             }
         }
 
@@ -171,9 +172,9 @@
 
         .btn {
             padding: 12px 30px;
-            border: 2px solid var(--primary-green);
+            border: 2px solid #fff;
             background: transparent;
-            color: var(--primary-green);
+            color: #fff;
             text-decoration: none;
             text-transform: uppercase;
             font-weight: bold;
@@ -189,7 +190,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--primary-green);
+            background: #fff;
             transition: left 0.3s ease;
             z-index: -1;
         }
@@ -199,17 +200,17 @@
         }
 
         .btn:hover {
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px var(--primary-green);
+            color: #111;
+            box-shadow: 0 0 20px #fff;
         }
 
         .btn-secondary {
-            border-color: var(--primary-cyan);
-            color: var(--primary-cyan);
+            border-color: #bbb;
+            color: #bbb;
         }
 
         .btn-secondary::before {
-            background: var(--primary-cyan);
+            background: #bbb;
         }
 
         /* Sections */
@@ -225,7 +226,7 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: var(--primary-green);
+            color: #fff;
             position: relative;
         }
 
@@ -237,7 +238,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 3px;
-            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+            background: #fff;
         }
 
         /* About Section */
@@ -268,7 +269,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+            background: #fff;
         }
 
         /* Events Section */
@@ -310,7 +311,7 @@
         }
 
         .event-date {
-            color: var(--primary-cyan);
+            color: #fff;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
@@ -333,7 +334,7 @@
         .project-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary-cyan);
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
         }
 
         .project-status {
@@ -372,7 +373,8 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+            background: #fff;
+            color: #111;
             margin: 0 auto 1rem;
             display: flex;
             align-items: center;
@@ -400,6 +402,7 @@
 
         .achievement-icon {
             font-size: 2rem;
+            filter: grayscale(1);
         }
 
         /* Contact Form */
@@ -457,7 +460,7 @@
         }
 
         .footer-section h3 {
-            color: var(--primary-green);
+            color: #fff;
             margin-bottom: 1rem;
         }
 
@@ -472,7 +475,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--primary-cyan);
+            color: #fff;
         }
 
         .social-links {
@@ -491,8 +494,8 @@
         }
 
         .social-links a:hover {
-            background: var(--primary-green);
-            color: var(--dark-bg);
+            background: #fff;
+            color: #111;
         }
 
         .footer-bottom {
@@ -513,12 +516,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
+            background: #fff;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-cyan);
+            background: #bbb;
         }
 
         /* Responsive Design */
@@ -563,13 +566,50 @@
 
         /* Typing Effect */
         .typing-text {
-            border-right: 2px solid var(--primary-green);
+            border-right: 2px solid #fff;
             animation: blink 1s infinite;
         }
 
         @keyframes blink {
             50% {
                 border-color: transparent;
+            }
+        }
+
+        /* Custom Monochrome Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 36px;
+            height: 36px;
+            border: 2.5px solid #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 900;
+            box-shadow: 0 0 16px 4px #fff, 0 0 32px 8px #bbb;
+            transition: border-color 0.2s;
+            mix-blend-mode: lighten;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        body,
+        a,
+        button,
+        .btn {
+            cursor: none !important;
+        }
+
+        @media (max-width: 768px) {
+            #custom-cursor {
+                display: none;
+            }
+
+            body,
+            a,
+            button,
+            .btn {
+                cursor: auto !important;
             }
         }
     </style>
@@ -838,8 +878,11 @@
         </div>
     </footer>
 
+    <!-- Custom Monochrome Cursor -->
+    <div id="custom-cursor"></div>
+
     <script>
-        // Matrix Rain Effect
+        // Matrix Rain Effect (Monochrome)
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -856,23 +899,19 @@
         }
 
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillStyle = 'rgba(20, 20, 20, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff41';
+            ctx.fillStyle = '#fff';
             ctx.font = fontSize + 'px monospace';
-
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
-
         setInterval(drawMatrix, 100);
 
         // Typing Effect
@@ -964,12 +1003,36 @@
         document.querySelectorAll('.cta-buttons .btn').forEach(btn => {
             btn.addEventListener('mouseenter', () => {
                 btn.style.transform = 'scale(1.08)';
-                btn.style.boxShadow = '0 0 30px var(--primary-green)';
+                btn.style.boxShadow = '0 0 30px #fff';
             });
             btn.addEventListener('mouseleave', () => {
                 btn.style.transform = '';
                 btn.style.boxShadow = '';
             });
+        });
+
+        // Monochrome Cursor Animation
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.18;
+            cursorY += (mouseY - cursorY) * 0.18;
+            cursor.style.transform = `translate3d(${cursorX - 18}px, ${cursorY - 18}px, 0)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        // Optional: Shrink cursor on click for feedback
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform += ' scale(0.7)';
+            cursor.style.borderColor = '#bbb';
+        });
+        document.addEventListener('mouseup', () => {
+            cursor.style.borderColor = '#fff';
         });
     </script>
 </body>
