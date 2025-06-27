@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CENTINELS Cybersecurity Club</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #00ff41;
+            --primary-cyan: #00ffff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111111;
+            --border-color: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-red: #ff0040;
+            --accent-blue: #0080ff;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-shadow: 0 0 10px var(--primary-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 5px var(--primary-cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-green);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px var(--primary-green));
+            }
+
+            to {
+                filter: drop-shadow(0 0 30px var(--primary-cyan));
+            }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: 2px solid var(--primary-green);
+            background: transparent;
+            color: var(--primary-green);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-green);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--primary-green);
+        }
+
+        .btn-secondary {
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+        }
+
+        .btn-secondary::before {
+            background: var(--primary-cyan);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .mission-vision {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .mission-vision::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+        }
+
+        /* Events Section */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .event-card:hover::before {
+            left: 100%;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .event-date {
+            color: var(--primary-cyan);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-green);
+            color: var(--dark-bg);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-cyan);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-cyan));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Achievements */
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-cyan);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            padding: 0.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-green);
+            color: var(--dark-bg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-cyan);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing Effect */
+        .typing-text {
+            border-right: 2px solid var(--primary-green);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas class="matrix-bg" id="matrix"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CENTINELS</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>CENTINELS Cybersecurity</h1>
+            <p class="typing-text" id="typing-text">Securing Tomorrow, Today.</p>
+            <p>Join the community of passionate defenders building a safer digital world.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn">🔐 Join Now</a>
+                <a href="#about" class="btn btn-secondary">🔍 Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section fade-in" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>CENTINELS is a vibrant and passionate cybersecurity club focused on empowering students to explore
+                    the world of ethical hacking, network security, digital forensics, and cyber awareness.</p>
+                <p>Our mission is to cultivate cybersecurity skills through collaboration, real-world simulations, and
+                    continuous learning. We believe in nurturing the next generation of ethical cyber guardians.</p>
+            </div>
+            <div class="mission-vision">
+                <h3 style="color: var(--primary-cyan); margin-bottom: 1rem;">Our Mission</h3>
+                <p style="margin-bottom: 1.5rem;"><em>To nurture ethical cyber guardians and empower future leaders to
+                        defend the digital frontier.</em></p>
+                <h3 style="color: var(--primary-cyan); margin-bottom: 1rem;">Our Vision</h3>
+                <p><em>A digitally aware and secure campus through education, innovation, and ethical action.</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="section fade-in" id="events">
+        <h2 class="section-title">Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-date">🔐 July 25, 2025</div>
+                <h3 style="color: var(--primary-green); margin-bottom: 1rem;">CyberWar 2.0: Inter-College CTF</h3>
+                <p>Challenge your brain, capture the flags, win exciting prizes! Join us for the ultimate cybersecurity
+                    showdown.</p>
+            </div>
+            <div class="event-card">
+                <div class="event-date">🛡️ April 2025</div>
+                <h3 style="color: var(--primary-green); margin-bottom: 1rem;">HackTheNight</h3>
+                <p>12-hour cybersecurity challenge marathon. Test your limits and push your skills to the next level.
+                </p>
+            </div>
+            <div class="event-card">
+                <div class="event-date">📚 March 2025</div>
+                <h3 style="color: var(--primary-green); margin-bottom: 1rem;">CyberSafe Week</h3>
+                <p>Campus-wide awareness drive on phishing and password safety. Making our community more secure.</p>
+            </div>
+            <div class="event-card">
+                <div class="event-date">🎤 February 2025</div>
+                <h3 style="color: var(--primary-green); margin-bottom: 1rem;">Expert Talk with Ankit Fadia</h3>
+                <p>Ethical hacking in the age of AI. Learn from one of India's leading cybersecurity experts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section fade-in" id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-status">ONGOING</div>
+                <h3 style="color: var(--primary-cyan); margin-bottom: 1rem;">🔍 PhishTrap</h3>
+                <p>Building a phishing detection simulator for students. Help make our campus more aware of social
+                    engineering attacks.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-status">ONGOING</div>
+                <h3 style="color: var(--primary-cyan); margin-bottom: 1rem;">🔐 Password Audit Tool</h3>
+                <p>A tool for checking password strength securely. Promoting better password hygiene across the campus.
+                </p>
+            </div>
+            <div class="project-card">
+                <div class="project-status">RESEARCH</div>
+                <h3 style="color: var(--primary-cyan); margin-bottom: 1rem;">🧠 AI in Cybersecurity</h3>
+                <p>Researching the role of machine learning in intrusion detection. The future of automated threat
+                    detection.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="#contact" class="btn">🤝 Want to contribute to a project?</a>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="section fade-in">
+        <h2 class="section-title">Achievements</h2>
+        <div class="achievements-list">
+            <div class="achievement-item">
+                <div class="achievement-icon">🥇</div>
+                <div>
+                    <h3 style="color: var(--primary-green);">Winners of SRM Inter-College CTF 2024</h3>
+                    <p>Dominated the competition with exceptional problem-solving skills.</p>
+                </div>
+            </div>
+            <div class="achievement-item">
+                <div class="achievement-icon">🥈</div>
+                <div>
+                    <h3 style="color: var(--primary-green);">Runner-up in HackByte'25 Cyber Challenge</h3>
+                    <p>Showcased our talent at one of the biggest cybersecurity events.</p>
+                </div>
+            </div>
+            <div class="achievement-item">
+                <div class="achievement-icon">🛡️</div>
+                <div>
+                    <h3 style="color: var(--primary-green);">Best Technical Club - SRM Tech Fest 2024</h3>
+                    <p>Recognized for our outstanding contribution to the tech community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section fade-in" id="team">
+        <h2 class="section-title">Our Team</h2>
+        <p style="text-align: center; margin-bottom: 3rem; color: var(--text-secondary);">Meet the minds behind
+            CENTINELS</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">SB</div>
+                <h3 style="color: var(--primary-green);">Sanjay Baskar</h3>
+                <p style="color: var(--primary-cyan);">President</p>
+                <p>Leading the charge in cybersecurity education and awareness.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">SP</div>
+                <h3 style="color: var(--primary-green);">Shiva Prakash</h3>
+                <p style="color: var(--primary-cyan);">Vice President</p>
+                <p>Strategic planning and community outreach specialist.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">RK</div>
+                <h3 style="color: var(--primary-green);">Rakshith Kumar</h3>
+                <p style="color: var(--primary-cyan);">Tech Lead</p>
+                <p>Driving innovation in cybersecurity tools and projects.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">SJ</div>
+                <h3 style="color: var(--primary-green);">Sam Joseph</h3>
+                <p style="color: var(--primary-cyan);">Events Head</p>
+                <p>Organizing world-class cybersecurity events and workshops.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">AR</div>
+                <h3 style="color: var(--primary-green);">Adhithya R.</h3>
+                <p style="color: var(--primary-cyan);">PR & Outreach</p>
+                <p>Building bridges with the cybersecurity community.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">SN</div>
+                <h3 style="color: var(--primary-green);">Saran N.</h3>
+                <p style="color: var(--primary-cyan);">Content & Research</p>
+                <p>Researching cutting-edge cybersecurity trends and threats.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="#contact" class="btn">🎯 Think you've got what it takes?</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section fade-in" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <p style="text-align: center; margin-bottom: 3rem; color: var(--text-secondary);">Let's collaborate, ask
+            questions, or invite us for a session.</p>
+
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <div class="social-links" style="justify-content: center;">
+                <a href="mailto:centinels.srm@gmail.com">📧 Email</a>
+                <a href="#">📷 Instagram</a>
+                <a href="#">💼 LinkedIn</a>
+                <a href="#">💬 Discord</a>
+            </div>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn">Send Message</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Learning Materials</a></li>
+                    <li><a href="#">Tools We Use</a></li>
+                    <li><a href="#">Practice Platforms</a></li>
+                    <li><a href="#">GitHub Projects</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>centinels.srm@gmail.com</p>
+                <div class="social-links">
+                    <a href="#">IG</a>
+                    <a href="#">LI</a>
+                    <a href="#">DC</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CENTINELS Cybersecurity Club. All rights reserved.</p>
+            <p>Your data is safe with us. We never share your information.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = '01';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 100);
+
+        // Typing Effect
+        const typingText = document.getElementById('typing-text');
+        const messages = [
+            'Securing Tomorrow, Today.',
+            'Empowering Ethical Hackers.',
+            'Building a Safer Digital World.',
+            'Join the Cybersecurity Revolution.'
+        ];
+        let messageIndex = 0;
+        let charIndex = 0;
+        let typingDelay = 70;
+        let erasingDelay = 40;
+        let newMessageDelay = 1500;
+        let isErasing = false;
+
+        function type() {
+            if (!isErasing && charIndex < messages[messageIndex].length) {
+                typingText.textContent = messages[messageIndex].substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else if (!isErasing) {
+                isErasing = true;
+                setTimeout(type, newMessageDelay);
+            } else if (isErasing && charIndex > 0) {
+                typingText.textContent = messages[messageIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(type, erasingDelay);
+            } else {
+                isErasing = false;
+                messageIndex = (messageIndex + 1) % messages.length;
+                setTimeout(type, typingDelay);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(type, 1000);
+        });
+
+        // Scroll-based fade-in animations
+        const fadeEls = document.querySelectorAll('.fade-in');
+        function handleFadeIn() {
+            fadeEls.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', handleFadeIn);
+        window.addEventListener('DOMContentLoaded', handleFadeIn);
+
+        // Animated achievement counters
+        function animateCounter(el, target) {
+            let count = 0;
+            const speed = 30;
+            function update() {
+                if (count < target) {
+                    count += Math.ceil(target / 40);
+                    if (count > target) count = target;
+                    el.textContent = count;
+                    setTimeout(update, speed);
+                } else {
+                    el.textContent = target;
+                }
+            }
+            update();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.achievement-item').forEach((item, idx) => {
+                const icons = ['🥇', '🥈', '🛡️'];
+                const targets = [1, 2, 3]; // Dummy numbers for demo
+                let counter = document.createElement('span');
+                counter.className = 'achievement-counter';
+                counter.style = 'font-size:1.5rem;color:var(--primary-cyan);margin-right:0.5rem;';
+                item.querySelector('.achievement-icon').after(counter);
+                animateCounter(counter, targets[idx]);
+            });
+        });
+
+        // Enhanced Matrix Rain Effect (dynamic resize)
+        function resizeMatrix() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeMatrix);
+
+        // Animated CTA buttons
+        document.querySelectorAll('.cta-buttons .btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'scale(1.08)';
+                btn.style.boxShadow = '0 0 30px var(--primary-green)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+
+</html>
