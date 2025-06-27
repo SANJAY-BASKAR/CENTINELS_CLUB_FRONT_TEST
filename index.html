@@ -553,7 +553,7 @@
 
             /* Mobile Sidebar Styles */
             .mobile-sidebar-overlay {
-                display: none;
+                display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -572,11 +572,14 @@
                 left: -260px;
                 width: 240px;
                 height: 100vh;
-                background: #181818;
-                box-shadow: 2px 0 24px rgba(0, 0, 0, 0.25);
+                background: rgba(24, 24, 24, 0.75);
+                box-shadow: 2px 0 32px 0 rgba(0, 0, 0, 0.45), 0 0 0 1.5px rgba(255, 255, 255, 0.08) inset;
                 z-index: 1300;
                 padding: 2rem 1.5rem 1.5rem 1.5rem;
                 transition: left 0.35s cubic-bezier(.77, 0, .18, 1);
+                backdrop-filter: blur(16px) saturate(160%);
+                -webkit-backdrop-filter: blur(16px) saturate(160%);
+                border-right: 2px solid rgba(255, 255, 255, 0.10);
             }
 
             .mobile-sidebar.open {
@@ -589,7 +592,13 @@
                 margin: 2rem 0 0 0;
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2.2rem;
+            }
+
+            .mobile-sidebar ul li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
             }
 
             .mobile-sidebar a {
@@ -598,37 +607,56 @@
                 text-decoration: none;
                 font-weight: 500;
                 letter-spacing: 1px;
-                transition: color 0.2s;
+                transition: color 0.22s, box-shadow 0.22s, background 0.22s, transform 0.22s;
+                border-radius: 8px;
+                padding: 0.5em 1em;
+                box-shadow: none;
+                position: relative;
             }
 
-            .mobile-sidebar a:hover {
-                color: #bbb;
+            .mobile-sidebar a:hover,
+            .mobile-sidebar a:focus {
+                color: #111;
+                background: #fff;
+                box-shadow: 0 4px 24px 0 rgba(255, 255, 255, 0.18), 0 0 0 2px #fff inset;
+                transform: translateX(8px) scale(1.06);
             }
 
             .mobile-sidebar .close-sidebar {
-                background: none;
+                background: rgba(255, 255, 255, 0.10);
                 border: none;
                 color: #fff;
-                font-size: 2rem;
+                font-size: 2.2rem;
                 position: absolute;
                 top: 1rem;
                 right: 1rem;
                 cursor: pointer;
-                transition: color 0.2s;
+                transition: color 0.2s, background 0.2s;
+                border-radius: 50%;
+                width: 2.5rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
             }
 
             .mobile-sidebar .close-sidebar:hover {
-                color: #bbb;
-            }
-
-            .mobile-sidebar.open~.mobile-sidebar-overlay {
-                display: block;
-                opacity: 1;
+                color: #111;
+                background: #fff;
             }
 
             .mobile-sidebar-overlay.active {
                 display: block;
                 opacity: 1;
+            }
+        }
+
+        @media (min-width: 769px) {
+
+            .mobile-sidebar,
+            .mobile-sidebar-overlay {
+                display: none !important;
             }
         }
 
