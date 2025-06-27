@@ -550,6 +550,86 @@
             .section {
                 padding: 3rem 1rem;
             }
+
+            /* Mobile Sidebar Styles */
+            .mobile-sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1200;
+                transition: opacity 0.3s;
+            }
+
+            .mobile-sidebar {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: -260px;
+                width: 240px;
+                height: 100vh;
+                background: #181818;
+                box-shadow: 2px 0 24px rgba(0, 0, 0, 0.25);
+                z-index: 1300;
+                padding: 2rem 1.5rem 1.5rem 1.5rem;
+                transition: left 0.35s cubic-bezier(.77, 0, .18, 1);
+            }
+
+            .mobile-sidebar.open {
+                left: 0;
+            }
+
+            .mobile-sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 2rem 0 0 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .mobile-sidebar a {
+                color: #fff;
+                font-size: 1.2rem;
+                text-decoration: none;
+                font-weight: 500;
+                letter-spacing: 1px;
+                transition: color 0.2s;
+            }
+
+            .mobile-sidebar a:hover {
+                color: #bbb;
+            }
+
+            .mobile-sidebar .close-sidebar {
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 2rem;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+
+            .mobile-sidebar .close-sidebar:hover {
+                color: #bbb;
+            }
+
+            .mobile-sidebar.open~.mobile-sidebar-overlay {
+                display: block;
+                opacity: 1;
+            }
+
+            .mobile-sidebar-overlay.active {
+                display: block;
+                opacity: 1;
+            }
         }
 
         /* Animations */
@@ -631,13 +711,27 @@
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu" tabindex="0">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Sidebar & Overlay -->
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="mobile-sidebar" id="mobileSidebar" aria-label="Mobile navigation">
+        <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">&times;</button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </aside>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -1033,6 +1127,32 @@
         });
         document.addEventListener('mouseup', () => {
             cursor.style.borderColor = '#fff';
+        });
+
+        // Mobile Sidebar Menu JS
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const closeSidebar = document.getElementById('closeSidebar');
+        function openSidebar() {
+            mobileSidebar.classList.add('open');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebarFn() {
+            mobileSidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        mobileMenuBtn.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFn);
+        sidebarOverlay.addEventListener('click', closeSidebarFn);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebarFn();
+        });
+        // Close sidebar on link click
+        mobileSidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeSidebarFn);
         });
     </script>
 </body>
